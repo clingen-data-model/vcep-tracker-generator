@@ -15,13 +15,29 @@ These reports all run on a set of functions contained in the “VariationTracker
 ### Description
 This function will create a custom menu called "🧬 Tracker" in the active spreadsheet. The custom menu will include two menu items:
 1. "☁ Get Release!": When selected, this menu item will execute the getRelease() function. You can customize the getRelease() function to retrieve and display a selected release date or perform any other relevant actions.
-2. "How to Use": When selected, this menu item will execute the showHowTo() function.
+2. "ℹ️ How to Use": When selected, this menu item will execute the showHowTo() function. This displays a pop-up of this document: [How To Use VCEP Variant Tracker Report](https://docs.google.com/document/d/1UMVFD1q55rkvNKoeG_Yb_oZBfW6J5UJ9KHW7o6P6IV4/edit).
+3. "🔀 Track": When selected, this menu item will execute the appendToTracker() function. This will copy selected (checked) variant reports from the active sheet, either "alerts" or "priorities" to the "tracking" sheet.
 Users can access the custom menu by navigating to the "🧬 Tracker" menu in the Google Sheets document. They can then select the desired menu item to perform the associated action. This provides a user-friendly interface for interacting with the tracker and accessing specific functionalities.
 ### Parameters
 None
 ### Returns
 None
 
+## getReleaseDate()
+### Description
+This function adjusts the release date for all of the sheets in use.
+### Parameters
+selectedAsOfDate - The date selected by the user in the VCEP Tracker Report.
+### Returns
+The single release date result.
+
+## refresh()
+### Description
+This function adjusts refresh/release dates for the spreadsheet, updating the "selectedAsOf", "Last Refresh As Of", "Last Refresh Release", and "Last Refresh Executed" variables as well.
+### Parameters
+None
+### Returns
+None
 
 ## refreshAll()
 ### Description
@@ -32,11 +48,11 @@ None
 None
 
 
-## updateFilterView()
+## resetStandardFilterViews()
 ### Description
-This function will retrieve the filter views in the "alerts" sheet, update the filter ranges to include the latest data, and apply the changes to the filter views in the spreadsheet. This ensures that the filter views display the most up-to-date information.
+This function will retrieve the filter views in the "alerts" and "priorities" sheet, update the filter ranges to include the latest data, and apply the changes to the filter views in the spreadsheet. This ensures that the filter views display the most up-to-date information as well as default ClinGen filters.
 ### Parameters
-None
+sheetName - Desired sheet to reset the standard filter views for.
 ### Returns
 None
 
@@ -58,6 +74,14 @@ None
 ### Returns
 None
 
+## formatDate(thisDate, inclTime)
+### Description
+Formats the given date into a string representation.
+### Parameters
+thisDate - The date to be formatted.
+inclTime - Whether to include the time in the formatted string.
+### Returns
+fdate - The given date, formatted as a string.
 
 # Deploying Changes to the Functions and Updating Existing Reports
 Changes to these functions that are meant to be applied to all Variant Tracker Reports must be done in the master file, [Variation Tracker Project Google Apps Script](https://script.google.com/home/projects/1bIhg7fWREGLvxvuhn_oNXexZnd6vRRkuzA7TgL--67JS0QW5rP6WKwr9/edit).
@@ -68,8 +92,8 @@ Changes to these functions that are meant to be applied to all Variant Tracker R
  * Select the deployment type as “Library” and add a description to the deployment that includes a version number to ensure the most up-to-date Google Script can be easily selected.
  * Select “Deploy” in the bottom right hand corner of the popup window you are working in.
 
-2. Separately update each Variant Tracker Report (they are currently running on the outdated deployment of the Variation Tracker Project Google Apps Script).
- * Work through each report by selecting “Extensions” followed by “Apps Script” in each report’s Google Sheets toolbar.
+2. Separately update each Variant Tracker Report.
+ * Work through each report by selecting “Extensions” followed by “Apps Script” in each report’s Google Sheets toolbar. (This process is in the process of being automated).
  * The new window that opens will contain wrapper functions that locally execute the functions from the master file. 
  * On the left-hand sidebar, select the library titled, “VariationTrackerProject”.
  * In the popup window, select the most recent version (highest number) of the VariationTrackerProject library.
